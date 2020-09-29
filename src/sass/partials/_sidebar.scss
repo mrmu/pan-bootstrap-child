@@ -1,0 +1,15 @@
+/**
+ * partials/sidebar
+ * ---
+ */
+
+.card{
+	&.widget_custom_html{
+		border:0px solid;
+	}
+	.card-body{
+		h3.card-title{
+			margin-top: 10px;
+		}
+	}
+}
