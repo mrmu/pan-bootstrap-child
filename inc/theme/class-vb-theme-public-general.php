@@ -2,7 +2,7 @@
 /**
  * Public general Initialization
  *
- * @package     Vagabond
+ * @package     pan-bootstrap-child
  * @since       0.1.0
  */
 
