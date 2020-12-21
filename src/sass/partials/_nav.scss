@@ -127,8 +127,13 @@ header.main-header{
 		.navbar-brand{
 			.logo_wrap{
 				max-width: 215px;
-				top: -10px;
+				width: auto;
+				height: 100px;
 				position: relative;
+				img{
+					height: 100%;
+					width: auto;
+				}
 			}
 		}
 		&.navbar-light{
@@ -161,8 +166,13 @@ header.main-header{
 			.navbar-brand{
 				.logo_wrap{
 					max-width: 300px;
-					top: -15px;
+					width: auto;
+					height: 100px;
 					position: relative;
+					img{
+						height: 100%;
+						width: auto;
+					}
 				}
 			}
 		}

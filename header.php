@@ -5,8 +5,8 @@
 		<title><?php wp_title(''); ?></title>
 
 		<link href="//www.google-analytics.com" rel="dns-prefetch">
-		<link href="<?php echo get_template_directory_uri(); ?>/logo.png" rel="shortcut icon">
-		<link href="<?php echo get_template_directory_uri(); ?>/logo.png" rel="apple-touch-icon-precomposed">
+		<link href="<?php echo VB_THEME_URI; ?>logo.png" rel="shortcut icon">
+		<link href="<?php echo VB_THEME_URI; ?>logo.png" rel="apple-touch-icon-precomposed">
 		<link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?>" href="<?php bloginfo('rss2_url'); ?>" />
 		
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -34,7 +34,17 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container">
 					<a class="navbar-brand" href="<?php echo home_url(); ?>">
-						<?php bloginfo('name'); ?>
+						<div class="logo_wrap">
+							<?php
+							$custom_logo_id = get_theme_mod( 'custom_logo' );
+							$logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+							if ( has_custom_logo() ) {
+									echo '<img src="' . esc_url( $logo[0] ) . '" alt="' . get_bloginfo( 'name' ) . '">';
+							} else {
+									echo '<h1>'. get_bloginfo( 'name' ) .'</h1>';
+							}
+							?>
+						</div>
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>

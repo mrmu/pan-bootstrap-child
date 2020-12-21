@@ -28,7 +28,7 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
 
             // enqueue styles & scripts
             add_action( 'wp_enqueue_scripts', array($this, 'public_enqueue_styles' ), 10);
-            add_action( 'wp_enqueue_scripts', array($this, 'public_enqueue_scripts' ), 10);
+            add_action( 'wp_enqueue_scripts', array($this, 'public_enqueue_scripts' ), 20);
 
             // embeded code: GTM
             add_action( 'wp_head', array($this, 'embed_gtm_code_head'), 99);
@@ -44,6 +44,11 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
 
             // Conditional script(s)
             if (is_home() || is_front_page()) {
+                // remove Parent assets
+                wp_deregister_script( 'home_js' );
+                wp_dequeue_script( 'home_js' );
+
+                // reg Child assets
                 wp_register_script(
                     'home_js', 
                     VB_THEME_URI . 'dist/home.min.js', 
@@ -61,7 +66,11 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
                 );	
             }elseif (is_singular()) {
                 global $post;
+                // remove Parent assets
+                wp_deregister_script( 'single_js' );
+                wp_dequeue_script( 'single_js' );
 
+                // reg Child assets
                 wp_register_script(
                     'single_js', 
                     VB_THEME_URI . 'dist/single.min.js', 
@@ -83,6 +92,11 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
                     )
                 );		
             }elseif (is_search() || is_archive()) {
+                // remove Parent assets
+                wp_deregister_script( 'archive_js' );
+                wp_dequeue_script( 'archive_js' );
+
+                // reg Child assets
                 wp_register_script(
                     'archive_js', 
                     VB_THEME_URI . 'dist/archive.min.js', 
@@ -100,6 +114,11 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
                     )
                 );	
             }else{
+                // remove Parent assets
+                wp_deregister_script( 'archive_js' );
+                wp_dequeue_script( 'archive_js' );
+
+                // reg Child assets
                 wp_register_script(
                     'archive_js', 
                     VB_THEME_URI . 'dist/archive.min.js', 
@@ -169,7 +188,7 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
 
         // GTM code
         public function embed_gtm_code_head() {
-            if (!empty($this->gtm)) {
+            if (!empty($this->gtm_id)) {
             ?>
             <!-- Google Tag Manager -->
             <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -182,7 +201,7 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
             }
         }
         public function embed_gtm_code_body() {
-            if (!empty($this->gtm)) {
+            if (!empty($this->gtm_id)) {
             ?>
             <!-- Google Tag Manager (noscript) -->
             <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo $this->get_gtm_id();?>"
@@ -190,7 +209,7 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
             <!-- End Google Tag Manager (noscript) -->
             <?php
             }
-        }        
+        }      
     }
 }
 
