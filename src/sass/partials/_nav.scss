@@ -4,15 +4,17 @@
  * Menus
  */
 
-header.top-header{
-	height: 55px;
-}
-ul.header-menu{
-	li{
-		list-style: none;
+ #main_navbar{
+	background-color: #fff;
+	min-height: 63px;
+	padding: 0px;
+	.logo_wrap{
+		h1{
+			margin: 10px 0;
+			font-size: 32px;	
+		}
 	}
 }
-
 nav.fixed-top{
 	z-index: 20;
 }
@@ -127,12 +129,12 @@ header.main-header{
 		.navbar-brand{
 			.logo_wrap{
 				max-width: 215px;
-				width: auto;
-				height: 100px;
+				max-height: 100px;
+				top: -10px;
 				position: relative;
 				img{
-					height: 100%;
-					width: auto;
+					width: 100%;
+					height: auto;
 				}
 			}
 		}
@@ -166,13 +168,8 @@ header.main-header{
 			.navbar-brand{
 				.logo_wrap{
 					max-width: 300px;
-					width: auto;
-					height: 100px;
+					top: -15px;
 					position: relative;
-					img{
-						height: 100%;
-						width: auto;
-					}
 				}
 			}
 		}
