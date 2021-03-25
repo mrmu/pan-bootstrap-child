@@ -21,15 +21,6 @@
 		}
 		?>
 		<!-- header -->
-		<header class="top-header clear">
-			<nav class="navbar navbar-expand-lg">
-				<div class="container">
-					<ul class="header-menu w-100 d-flex justify-content-end">
-                        <li>...</li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
 		<header class="header main-header clear">
 			<nav id="main_navbar" class="navbar navbar-expand-lg fixed-top navbar-light">
 				<div class="container">

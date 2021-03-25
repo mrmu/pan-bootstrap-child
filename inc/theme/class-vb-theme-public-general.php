@@ -14,7 +14,6 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
 	class VB_Theme_Public_General {
 
         private static $instance;
-        private $gtm_id;
 
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
@@ -24,15 +23,28 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
 		}
 
 		public function __construct() {
-            $this->gtm_id = ''; //GTM-xxxxxxx
-
             // enqueue styles & scripts
             add_action( 'wp_enqueue_scripts', array($this, 'public_enqueue_styles' ), 10);
             add_action( 'wp_enqueue_scripts', array($this, 'public_enqueue_scripts' ), 20);
 
-            // embeded code: GTM
-            add_action( 'wp_head', array($this, 'embed_gtm_code_head'), 99);
-            add_action( 'wp_body_open', array($this, 'embed_gtm_code_body'), 99);
+            // embeded code
+            add_action( 'wp_head', array($this, 'add_js_code_to_head'), 99);
+            add_action( 'wp_body_open', array($this, 'add_js_code_to_body'), 99);
+
+            add_action( 'init', array($this, 'init_theme'), 1 );
+        }
+
+        public function init_theme() {
+            // ACF Pro
+            if( function_exists('acf_add_options_page') ) {
+                acf_add_options_page(array(
+                    'page_title' 	=> '佈景設定',
+                    'menu_title'	=> '佈景設定',
+                    'menu_slug' 	=> 'theme-general-settings',
+                    'capability'	=> 'manage_options',
+                    'redirect'		=> false
+                ));
+            }
         }
 
         public function public_enqueue_scripts() 
@@ -182,34 +194,28 @@ if ( ! class_exists( 'VB_Theme_Public_General' ) ) {
         
         }
 
-        private function get_gtm_id() {
-            return $this->gtm_id;
+        // JS in head
+        public function add_js_code_to_head() {
+
+            $embed_code_head = '<!-- js in head -->';
+            if ( function_exists('get_field') ) {
+                $embed_code_head .= get_field('embed_code_head', 'option');
+            }
+            if (!empty($embed_code_head)) {
+                echo $embed_code_head;
+            }
         }
 
-        // GTM code
-        public function embed_gtm_code_head() {
-            if (!empty($this->gtm_id)) {
-            ?>
-            <!-- Google Tag Manager -->
-            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','<?php echo $this->get_gtm_id();?>');</script>
-            <!-- End Google Tag Manager -->
-            <?php
+        // JS in body open
+        public function add_js_code_to_body() {
+            $embed_code_body = '<!-- js in body -->';
+            if ( function_exists('get_field') ) {
+                $embed_code_body .= get_field('embed_code_body', 'option');
+            }
+            if (!empty($embed_code_body)) {
+                echo $embed_code_body;
             }
         }
-        public function embed_gtm_code_body() {
-            if (!empty($this->gtm_id)) {
-            ?>
-            <!-- Google Tag Manager (noscript) -->
-            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo $this->get_gtm_id();?>"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-            <!-- End Google Tag Manager (noscript) -->
-            <?php
-            }
-        }      
     }
 }
 
