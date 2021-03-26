@@ -1,2 +1,8 @@
-// Home
+// home.js 包含 global.js 包含 style.scss  包含 Bootstrap
+
+// Modules
+@import "modules/variables";
+@import "modules/mixins";
+@import "modules/fonts";
+
 @import "modules/home_custom";
