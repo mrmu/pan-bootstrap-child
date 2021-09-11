@@ -19,33 +19,54 @@
 			do_action( 'wp_body_open' );
 		}
 		?>
+
 		<!-- header -->
 		<header class="header main-header clear">
-			<nav id="main_navbar" class="navbar navbar-expand-lg fixed-top navbar-light">
-				<div class="container">
-					<a class="navbar-brand-link" href="<?php echo home_url(); ?>">
-						<div class="logo_wrap">
-							<?php
-							$custom_logo_id = get_theme_mod( 'custom_logo' );
-							$logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-							if ( has_custom_logo() ) {
-									echo '<img src="' . esc_url( $logo[0] ) . '" alt="' . get_bloginfo( 'name' ) . '">';
-							} else {
-									echo '<h1>'. get_bloginfo( 'name' ) .'</h1>';
-							}
-							?>
-						</div>
-					</a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<nav id="main_navbar"  class="navbar navbar-expand-lg navbar-light">
+
+				<div class="container p-0">
+
+					<!-- Hamburger (Mobile) -->
+					<button class="navbar-toggler ms-1 order-1 order-lg-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul id="menu-main-menu" class="navbar-nav ml-auto">
+
+					<!-- Logo -->
+					<a class="navbar-brand order-2 order-lg-1 mx-0 py-0 pt-2 pt-lg-0" href="<?php echo home_url(); ?>">
+						<?php
+						$custom_logo_id = get_theme_mod( 'custom_logo' );
+						$logo_img = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+						if ( has_custom_logo() ) {
+							?>
+							<div style="max-width: 150px; max-height: 55px;">
+								<img src="<?php echo esc_url($logo_img[0]);?>" alt="<?php echo get_bloginfo( 'name' );?>" style="width:100%; height:100%; max-height: 50px;">
+							</div>
+							<?php
+						} else {
+							?>
+							<div style="display:inline-block; margin-left:5px; color:#555; font-weight:bold;">
+								<?php bloginfo('name'); ?>
+							</div>
+							<?php
+						}
+						?>
+					</a>
+
+					<!-- Menu (PC & Mobile) -->
+					<div class="menu_wrap collapse navbar-collapse order-4 order-lg-2" id="navbarSupportedContent">
+						<ul id="menu-main-menu" class="navbar-nav me-auto">
 							<?php pan_bootstrap_nav(); ?>
 						</ul>
 					</div>
+
+					<div class="links_wrap me-1 d-flex order-3 order-lg-3">
+						<a href="d-inline-block" style="font-size: 26px; padding: 0 5px; margin-right: 5px;">
+							<i class="far fa-envelope"></i>
+						</a>
+					</div>
 				</div>
 				<!-- /.container -->
+
 			</nav>
 		</header>
 		<!-- /header -->
