@@ -44,7 +44,7 @@
 							<?php
 						} else {
 							?>
-							<div style="display:inline-block; margin-left:5px; color:#555; font-weight:bold;">
+							<div class="py-1 py-lg-2" style="display:inline-block; margin-left:5px; height: 55px; color:#555; font-weight:bold;">
 								<?php bloginfo('name'); ?>
 							</div>
 							<?php
